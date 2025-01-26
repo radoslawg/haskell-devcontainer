@@ -26,4 +26,4 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: https://ghcr.io/radoslawg/haskell-devcontainer:latest
+          tags: ghcr.io/radoslawg/haskell-devcontainer:latest
