@@ -1,6 +1,6 @@
 {
     "name": "Haskell (Community)",
-    "image": "ghcr.io/radoslawg/haskell-devcontainer/haskell-dev:latest",
+    "image": "ghcr.io/radoslawg/haskell-devcontainer:latest",
     // Configure tool-specific properties.
     "customizations": {
       // Configure properties specific to VS Code.

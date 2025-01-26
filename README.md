@@ -3,6 +3,9 @@
 
 Haskell Dev-Container to use with visual studio code or standalone
 
+Image is available at `ghcr.io/radoslawg/haskell-devcontainer:latest`
+
 `/.devcontainer/decontainer.json` shows sample usage of image for [Visual Studio Code](https://code.visualstudio.com/)
 
 Informations about Devcontainers can be found [here](https://code.visualstudio.com/docs/devcontainers/containers)
+
