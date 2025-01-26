@@ -128,6 +128,6 @@ USER $USERNAME
 ENV PATH="/home/$USERNAME/.cabal/bin:/home/$USERNAME/.ghcup/bin:$PATH"
 
 COPY --from=builder --chown=${USER_UID}:${USER_GID} /home/$USERNAME/.ghcup /home/$USERNAME/.ghcup
-COPY --from=builder /home/$USERNAME/.cabal /home/$USERNAME/.cabal
+COPY --from=builder --chown=${USER_UID}:${USER_GID} /home/$USERNAME/.cabal /home/$USERNAME/.cabal
 
 RUN echo "source /home/vscode/.ghcup/env" >> /home/${USERNAME}/.bashrc
