@@ -54,7 +54,8 @@ ENV BOOTSTRAP_HASKELL_INSTALL_HLS=1
 # ENV BOOTSTRAP_HASKELL_MINIMAL=1
 # ENV BOOTSTRAP_HASKELL_VERBOSE=1
 RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
-# RUN cabal update
+RUN cabal update
+RUN cabal install hlint
 # RUN cabal install hlint stylish-haskell hasktags hasktags hoogle
 
 RUN rm -rf /home/vscode/.ghcup/tmp/*
