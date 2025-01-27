@@ -131,4 +131,5 @@ COPY --from=builder --chown=${USER_UID}:${USER_GID} /home/$USERNAME/.cabal /home
 COPY --from=builder --chown=${USER_UID}:${USER_GID} /home/$USERNAME/.local /home/$USERNAME/.local
 
 RUN echo "source /home/vscode/.ghcup/env" >> /home/${USERNAME}/.bashrc \
-  && stack config set resolver ghc-9.10.1
+  && stack config set system-ghc --global true
+
