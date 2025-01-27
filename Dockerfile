@@ -58,11 +58,11 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh \
   && stack install hlint \
   && stack clean \
   && cabal clean \
-  && ghcup rm ghc 9.8.4
-  && rm -rf /home/vscode/.ghcup/tmp/*
-  && rm -rf /home/vscode/.ghcup/cache/*
-  && rm -rf /home/vscode/.ghcup/logs/*
-  && rm -rf /home/vscode/.ghcup/trash/*
+  && ghcup rm ghc 9.8.4 \
+  && rm -rf /home/vscode/.ghcup/tmp/* \
+  && rm -rf /home/vscode/.ghcup/cache/* \
+  && rm -rf /home/vscode/.ghcup/logs/* \
+  && rm -rf /home/vscode/.ghcup/trash/* 
 
 ####### FINAL IMAGE #######
 FROM debian:bookworm-slim AS release
