@@ -58,6 +58,7 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh \
   && ghcup install hls latest --set \
   && ghcup install stack latest --set \
   && ghcup install cabal latest --set \
+  && stack config set resolver ghc-9.10.1 \
   && stack update \
   && stack install hlint \
   && stack clean \
@@ -129,4 +130,5 @@ COPY --from=builder --chown=${USER_UID}:${USER_GID} /home/$USERNAME/.cabal /home
 #COPY --from=builder --chown=${USER_UID}:${USER_GID} /home/$USERNAME/.stack /home/$USERNAME/.stack
 COPY --from=builder --chown=${USER_UID}:${USER_GID} /home/$USERNAME/.local /home/$USERNAME/.local
 
-RUN echo "source /home/vscode/.ghcup/env" >> /home/${USERNAME}/.bashrc
+RUN echo "source /home/vscode/.ghcup/env" >> /home/${USERNAME}/.bashrc \
+  && stack config set resolver ghc-9.10.1
