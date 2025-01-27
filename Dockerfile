@@ -51,9 +51,13 @@ USER $USERNAME
 ENV PATH="/home/$USERNAME/.local/bin:/home/$USERNAME/.cabal/bin:/home/$USERNAME/.ghcup/bin:$PATH"
 ENV BOOTSTRAP_HASKELL_NONINTERACTIVE=1
 ENV BOOTSTRAP_HASKELL_INSTALL_HLS=1
-# ENV BOOTSTRAP_HASKELL_MINIMAL=1
+ENV BOOTSTRAP_HASKELL_MINIMAL=1
 # ENV BOOTSTRAP_HASKELL_VERBOSE=1
 RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh \
+  && ghcup install ghc latest --set \
+  && ghcup install stack latest --set \
+  && ghcup install cabal latest --set \
+  && ghcup install hls latest --set \
   && stack update \
   && stack install hlint \
   && stack clean \
