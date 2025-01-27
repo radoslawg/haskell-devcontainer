@@ -51,18 +51,18 @@ USER $USERNAME
 ENV PATH="/home/$USERNAME/.local/bin:/home/$USERNAME/.cabal/bin:/home/$USERNAME/.ghcup/bin:$PATH"
 ENV BOOTSTRAP_HASKELL_NONINTERACTIVE=1
 ENV BOOTSTRAP_HASKELL_INSTALL_HLS=1
-ENV BOOTSTRAP_HASKELL_MINIMAL=1
+#ENV BOOTSTRAP_HASKELL_MINIMAL=1
 # ENV BOOTSTRAP_HASKELL_VERBOSE=1
 RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh \
-  && ghcup install ghc 9.8.4 --set \
-  && ghcup install stack recommended --set \
-  && ghcup install cabal recommended --set \
-  && ghcup install hls recommended --set \
   && stack update \
   && stack install hlint \
   && stack clean \
   && cabal clean \
+  && ghcup rm ghc 9.8.4
   && rm -rf /home/vscode/.ghcup/tmp/*
+  && rm -rf /home/vscode/.ghcup/cache/*
+  && rm -rf /home/vscode/.ghcup/logs/*
+  && rm -rf /home/vscode/.ghcup/trash/*
 
 ####### FINAL IMAGE #######
 FROM debian:bookworm-slim AS release
