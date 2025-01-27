@@ -58,6 +58,7 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh \
   && ghcup install hls latest --set \
   && ghcup install stack latest --set \
   && ghcup install cabal latest --set \
+  && cabal update \
   && cabal install hlint \
   && stack clean \
   && cabal clean \
