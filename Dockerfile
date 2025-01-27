@@ -58,12 +58,9 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh \
   && ghcup install hls latest --set \
   && ghcup install stack latest --set \
   && ghcup install cabal latest --set \
-  && stack config set system-ghc --global true \
-  && stack update \
-  && stack install hlint \
+  && cabal install hlint \
   && stack clean \
   && cabal clean \
-  && ghcup rm ghc 9.8.4 \
   && rm -rf /home/vscode/.ghcup/tmp/* \
   && rm -rf /home/vscode/.ghcup/cache/* \
   && rm -rf /home/vscode/.ghcup/logs/* \
@@ -127,9 +124,8 @@ ENV PATH="/home/$USERNAME/.local/bin:/home/$USERNAME/.cabal/bin:/home/$USERNAME/
 
 COPY --from=builder --chown=${USER_UID}:${USER_GID} /home/$USERNAME/.ghcup /home/$USERNAME/.ghcup
 COPY --from=builder --chown=${USER_UID}:${USER_GID} /home/$USERNAME/.cabal /home/$USERNAME/.cabal
-#COPY --from=builder --chown=${USER_UID}:${USER_GID} /home/$USERNAME/.stack /home/$USERNAME/.stack
+COPY --from=builder --chown=${USER_UID}:${USER_GID} /home/$USERNAME/.stack /home/$USERNAME/.stack
 COPY --from=builder --chown=${USER_UID}:${USER_GID} /home/$USERNAME/.local /home/$USERNAME/.local
 
-RUN echo "source /home/vscode/.ghcup/env" >> /home/${USERNAME}/.bashrc \
-  && stack config set system-ghc --global true
+RUN echo "source /home/vscode/.ghcup/env" >> /home/${USERNAME}/.bashrc
 
