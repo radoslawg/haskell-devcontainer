@@ -50,7 +50,7 @@ USER $USERNAME
 
 ENV PATH="/home/$USERNAME/.local/bin:/home/$USERNAME/.cabal/bin:/home/$USERNAME/.ghcup/bin:$PATH"
 ENV BOOTSTRAP_HASKELL_NONINTERACTIVE=1
-ENV BOOTSTRAP_HASKELL_INSTALL_HLS=0
+ENV BOOTSTRAP_HASKELL_INSTALL_HLS=1
 # ENV BOOTSTRAP_HASKELL_MINIMAL=1
 # ENV BOOTSTRAP_HASKELL_VERBOSE=1
 RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh \
@@ -122,13 +122,10 @@ RUN groupadd --gid $USER_GID $USERNAME \
  
 USER $USERNAME
 ENV PATH="/home/$USERNAME/.local/bin:/home/$USERNAME/.cabal/bin:/home/$USERNAME/.ghcup/bin:$PATH"
-RUN mkdir -p /home/$USERNAME/.local/bin
-COPY --from=builder --chown=${USER_UID}:${USER_GID} /home/$USERNAME/.cabal/bin /home/$USERNAME/.local/bin
 
-ENV BOOTSTRAP_HASKELL_NONINTERACTIVE=1
-ENV BOOTSTRAP_HASKELL_INSTALL_HLS=1
-RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh \
-  && cabal update
+COPY --from=builder --chown=${USER_UID}:${USER_GID} /home/$USERNAME/.ghcup /home/$USERNAME/.ghcup
+COPY --from=builder --chown=${USER_UID}:${USER_GID} /home/$USERNAME/.cabal /home/$USERNAME/.cabal
+COPY --from=builder --chown=${USER_UID}:${USER_GID} /home/$USERNAME/.stack /home/$USERNAME/.stack
+#COPY --from=builder --chown=${USER_UID}:${USER_GID} /home/$USERNAME/.local /home/$USERNAME/.local
 
 RUN echo "source /home/vscode/.ghcup/env" >> /home/${USERNAME}/.bashrc
-
