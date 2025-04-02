@@ -49,17 +49,24 @@ RUN groupadd --gid $USER_GID $USERNAME \
 
 USER $USERNAME
 
-ENV PATH="/home/$USERNAME/.cabal/bin:/home/$USERNAME/.ghcup/bin:$PATH"
+ENV PATH="/home/$USERNAME/.local/bin:/home/$USERNAME/.cabal/bin:/home/$USERNAME/.ghcup/bin:$PATH"
 ENV BOOTSTRAP_HASKELL_NONINTERACTIVE=1
 ENV BOOTSTRAP_HASKELL_INSTALL_HLS=1
 # ENV BOOTSTRAP_HASKELL_MINIMAL=1
 # ENV BOOTSTRAP_HASKELL_VERBOSE=1
-RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
-RUN cabal update
-RUN cabal install hlint haskell-dap ghci-dap haskell-debug-adapter hoogle hasktags stylish-haskell
-# RUN cabal install hlint stylish-haskell hasktags hasktags hoogle
-
-RUN rm -rf /home/vscode/.ghcup/tmp/*
+RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh \
+    #  && ghcup install ghc 9.10.1 --set \
+    #  && ghcup install hls latest --set \
+    #  && ghcup install stack latest --set \
+    #  && ghcup install cabal latest --set \
+    && cabal update \
+    && cabal install hlint haskell-dap ghci-dap haskell-debug-adapter hoogle hasktags stylish-haskell \
+    && stack clean \
+    && cabal clean \
+    && rm -rf /home/vscode/.ghcup/tmp/* \
+    && rm -rf /home/vscode/.ghcup/cache/* \
+    && rm -rf /home/vscode/.ghcup/logs/* \
+    && rm -rf /home/vscode/.ghcup/trash/* 
 
 ####### FINAL IMAGE #######
 FROM debian:bookworm-slim AS release
@@ -116,9 +123,11 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME
 
 USER $USERNAME
-ENV PATH="/home/$USERNAME/.cabal/bin:/home/$USERNAME/.ghcup/bin:$PATH"
+ENV PATH="/home/$USERNAME/.local/bin:/home/$USERNAME/.cabal/bin:/home/$USERNAME/.ghcup/bin:$PATH"
 
 COPY --from=builder --chown=${USER_UID}:${USER_GID} /home/$USERNAME/.ghcup /home/$USERNAME/.ghcup
 COPY --from=builder --chown=${USER_UID}:${USER_GID} /home/$USERNAME/.cabal /home/$USERNAME/.cabal
+COPY --from=builder --chown=${USER_UID}:${USER_GID} /home/$USERNAME/.stack /home/$USERNAME/.stack
+#COPY --from=builder --chown=${USER_UID}:${USER_GID} /home/$USERNAME/.local /home/$USERNAME/.local
 
 RUN echo "source /home/vscode/.ghcup/env" >> /home/${USERNAME}/.bashrc
