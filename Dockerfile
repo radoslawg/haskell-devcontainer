@@ -9,42 +9,43 @@ RUN apt-get update \
     && export DEBIAN_FRONTEND=noninteractive \
     && apt-get dist-upgrade -y \
     && apt-get install -y --no-install-recommends \
-        dpkg-dev \
-        gcc \
-        libc6-dev \
-        libffi-dev \
-        libgmp-dev \
-        libnuma-dev \
-        libtinfo-dev \
-        zlib1g-dev \
-        zsh \
-        curl \
-        apt-utils \
-        openssh-client \
-        gnupg2 \
-        dirmngr \
-        iproute2 \
-        procps \
-        lsof \
-        htop \
-        net-tools \
-        psmisc \
-        curl \
-        wget \
-        rsync \
-        ca-certificates \
-        unzip \
-        zip \
-        vim-tiny \
-        less \
-        apt-transport-https \
-        locales \
-        sudo \
-        g++ \
+    build-essential \
+    dpkg-dev \
+    gcc \
+    libc6-dev \
+    libffi-dev \
+    libgmp-dev \
+    libnuma-dev \
+    libtinfo-dev \
+    zlib1g-dev \
+    zsh \
+    curl \
+    apt-utils \
+    openssh-client \
+    gnupg2 \
+    dirmngr \
+    iproute2 \
+    procps \
+    lsof \
+    htop \
+    net-tools \
+    psmisc \
+    curl \
+    wget \
+    rsync \
+    ca-certificates \
+    unzip \
+    zip \
+    vim-tiny \
+    less \
+    apt-transport-https \
+    locales \
+    sudo \
+    g++ \
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 RUN groupadd --gid $USER_GID $USERNAME \
-   && useradd -s /bin/bash -m $USERNAME --uid $USER_UID --gid $USER_GID \
-   && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME
+    && useradd -s /bin/bash -m $USERNAME --uid $USER_UID --gid $USER_GID \
+    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME
 
 USER $USERNAME
 
@@ -55,7 +56,7 @@ ENV BOOTSTRAP_HASKELL_INSTALL_HLS=1
 # ENV BOOTSTRAP_HASKELL_VERBOSE=1
 RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
 RUN cabal update
-RUN cabal install hlint
+RUN cabal install hlint haskell-dap ghci-dap haskell-debug-adapter hoogle hasktags stylish-haskell
 # RUN cabal install hlint stylish-haskell hasktags hasktags hoogle
 
 RUN rm -rf /home/vscode/.ghcup/tmp/*
@@ -73,6 +74,7 @@ RUN apt-get update \
     && export DEBIAN_FRONTEND=noninteractive \
     && apt-get dist-upgrade -y \
     && apt-get install -y --no-install-recommends \
+    build-essential \
     dpkg-dev \
     make \
     gcc \
@@ -107,12 +109,12 @@ RUN apt-get update \
     apt-transport-https \
     locales \
     sudo \
-  && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
+    && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 RUN groupadd --gid $USER_GID $USERNAME \
     && useradd -s /bin/bash -m $USERNAME --uid $USER_UID --gid $USER_GID \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME
- 
+
 USER $USERNAME
 ENV PATH="/home/$USERNAME/.cabal/bin:/home/$USERNAME/.ghcup/bin:$PATH"
 
