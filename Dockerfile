@@ -60,7 +60,7 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh \
     #  && ghcup install stack latest --set \
     #  && ghcup install cabal latest --set \
     && cabal update \
-    && cabal install hlint haskell-dap ghci-dap haskell-debug-adapter hoogle hasktags stylish-haskell \
+    && cabal install hlint haskell-dap ghci-dap haskell-debug-adapter hoogle hasktags stylish-haskell fast-tags \
     && stack clean \
     && cabal clean \
     && hoogle generate \
