@@ -59,15 +59,15 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh \
     #  && ghcup install hls latest --set \
     #  && ghcup install stack latest --set \
     #  && ghcup install cabal latest --set \
-    && cabal update \
-    && cabal install hlint haskell-dap ghci-dap haskell-debug-adapter hoogle hasktags stylish-haskell fast-tags \
+#    && cabal update \
+    && stack install --resolver lts-21.25 fourmolu hlint haskell-dap ghci-dap haskell-debug-adapter hoogle hasktags stylish-haskell fast-tags \
     && stack clean \
     && cabal clean \
     && hoogle generate \
     && rm -rf /home/vscode/.ghcup/tmp/* \
     && rm -rf /home/vscode/.ghcup/cache/* \
     && rm -rf /home/vscode/.ghcup/logs/* \
-    && rm -rf /home/vscode/.ghcup/trash/* 
+    && rm -rf /home/vscode/.ghcup/trash/*
 
 ####### FINAL IMAGE #######
 FROM debian:bookworm-slim AS release
