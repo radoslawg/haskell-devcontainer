@@ -15,6 +15,11 @@ RUN apt-get update \
     libc6-dev \
     libffi-dev \
     libgmp-dev \
+    libgmp10 \
+    libncurses-dev \
+    libncurses5 \
+    libtinfo5 \
+    pkg-config \    
     libnuma-dev \
     libtinfo-dev \
     zlib1g-dev \
@@ -91,6 +96,11 @@ RUN apt-get update \
     libc6-dev \
     libffi-dev \
     libgmp-dev \
+    libgmp10 \
+    libncurses-dev \
+    libncurses5 \
+    libtinfo5 \
+    pkg-config \    
     libnuma-dev \
     libtinfo-dev \
     zlib1g-dev \
