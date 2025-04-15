@@ -58,8 +58,8 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
 RUN ghcup install ghc 9.8.4 --set \
     && ghcup install hls latest --set \
     && ghcup install stack latest --set \
-    && ghcup install cabal 3.10.3.0 --set \
-#    && cabal update \
+    && ghcup install cabal 3.10.3.0 --set
+RUN source /home/vscode/.ghcup/env \
     && stack install --resolver lts-23 fourmolu hlint haskell-dap ghci-dap haskell-debug-adapter hoogle hasktags stylish-haskell fast-tags \
     && stack clean \
     && cabal clean \
