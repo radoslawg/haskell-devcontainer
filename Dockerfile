@@ -67,10 +67,10 @@ RUN ghcup install ghc 9.8.4 --set \
     
 RUN . /home/vscode/.ghcup/env \
     && stack config set system-ghc --global true \
-    && stack install --resolver lts-23 fourmolu hlint haskell-dap ghci-dap haskell-debug-adapter hoogle hasktags stylish-haskell fast-tags \
+    && stack install --resolver lts-23 fourmolu hlint haskell-dap ghci-dap haskell-debug-adapter hasktags stylish-haskell fast-tags \
     && stack clean \
     && cabal clean \
-    && hoogle generate \
+#    && hoogle generate \
     && rm -rf /home/vscode/.ghcup/tmp/* \
     && rm -rf /home/vscode/.ghcup/cache/* \
     && rm -rf /home/vscode/.ghcup/logs/* \
