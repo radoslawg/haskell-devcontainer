@@ -54,8 +54,8 @@ ENV BOOTSTRAP_HASKELL_NONINTERACTIVE=1
 #ENV BOOTSTRAP_HASKELL_INSTALL_HLS=1
 ENV BOOTSTRAP_HASKELL_MINIMAL=1
 # ENV BOOTSTRAP_HASKELL_VERBOSE=1
-RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh \
-    ghcup install ghc 9.8.4 --set \
+RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
+RUN ghcup install ghc 9.8.4 --set \
     ghcup install hls latest --set \
     ghcup install stack latest --set \
     ghcup install cabal 3.10.3.0 --set \
