@@ -9,3 +9,9 @@ Image is available at `ghcr.io/radoslawg/haskell-devcontainer:latest`
 
 Informations about Devcontainers can be found [here](https://code.visualstudio.com/docs/devcontainers/containers)
 
+## Versions
+
+- GHC 9.8.4
+- HLS latest
+- Stack latest
+- Cabal 3.10.3.0
