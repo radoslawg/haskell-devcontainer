@@ -66,8 +66,8 @@ RUN ghcup install ghc 9.8.4 --set \
     && ghcup install cabal 3.10.3.0 --set
     
 RUN . /home/vscode/.ghcup/env \
-    && cabal update
-    && cabal install hoogle
+    && cabal update \
+    && cabal install hoogle \
     && stack config set system-ghc --global true \
     && stack install --resolver lts-23 fourmolu hlint haskell-dap ghci-dap haskell-debug-adapter hasktags stylish-haskell fast-tags \
     && stack clean \
